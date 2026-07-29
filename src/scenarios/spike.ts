@@ -19,7 +19,7 @@ export const options = {
   },
 };
 
-export default function () {
+export default function spike() {
   const res = http.get(`${BASE_URL}/api/v1/movies`);
   check(res, {
     'status 200': (r) => r.status === 200,

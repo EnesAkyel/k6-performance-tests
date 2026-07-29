@@ -16,7 +16,7 @@ export const options = {
   },
 };
 
-export default function () {
+export default function load() {
   group('movies', () => {
     const listRes = http.get(`${BASE_URL}/api/v1/movies`);
     check(listRes, {
