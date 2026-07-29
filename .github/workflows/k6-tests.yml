@@ -93,7 +93,7 @@ jobs:
       - name: Run k6 scenario
         run: |
           SCENARIO=${{ github.event.inputs.scenario || 'smoke' }}
-          k6 run dist/${SCENARIO}.js -e BASE_URL=http://localhost:8080
+          k6 run dist/${SCENARIO}.js -e BASE_URL=http://localhost:8080 --summary-export=summary.json
 
       - name: Upload k6 summary
         uses: actions/upload-artifact@v7
