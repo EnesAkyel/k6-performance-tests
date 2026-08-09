@@ -1,6 +1,7 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 import { BASE_URL } from '../config';
+import { login } from '../helpers/auth';
 
 // Simulates a sudden traffic spike then validates recovery to baseline.
 export const options = {
@@ -19,8 +20,14 @@ export const options = {
   },
 };
 
-export default function spike() {
-  const res = http.get(`${BASE_URL}/api/v1/movies`);
+export function setup(): { token: string } {
+  return { token: login() };
+}
+
+export default function spike(data: { token: string }) {
+  const res = http.get(`${BASE_URL}/api/v1/movies`, {
+    headers: { Authorization: `Bearer ${data.token}` },
+  });
   check(res, {
     'status 200': (r) => r.status === 200,
   });
