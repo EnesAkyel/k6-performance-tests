@@ -1,6 +1,7 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 import { BASE_URL } from '../config';
+import { login } from '../helpers/auth';
 
 // Incrementally increases load to find the API's breaking point.
 export const options = {
@@ -21,8 +22,14 @@ export const options = {
   },
 };
 
-export default function stress() {
-  const res = http.get(`${BASE_URL}/api/v1/movies`);
+export function setup(): { token: string } {
+  return { token: login() };
+}
+
+export default function stress(data: { token: string }) {
+  const res = http.get(`${BASE_URL}/api/v1/movies`, {
+    headers: { Authorization: `Bearer ${data.token}` },
+  });
   check(res, {
     'status 200': (r) => r.status === 200,
   });
