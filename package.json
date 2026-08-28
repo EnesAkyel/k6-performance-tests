@@ -12,8 +12,8 @@
     "load:url": "npm run build && k6 run dist/load.js -e BASE_URL=$BASE_URL"
   },
   "devDependencies": {
-    "@types/k6": "^2.0.1",
-    "esbuild": "^0.28.1",
+    "@types/k6": "^2.2.0",
+    "esbuild": "^0.28.2",
     "typescript": "^7.0.2"
   }
 }
