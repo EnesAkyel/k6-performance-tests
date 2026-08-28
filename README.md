@@ -9,7 +9,7 @@ TypeScript k6 performance test suite targeting [movie-catalog-api](https://githu
 | k6         | latest  | Load testing engine              |
 | TypeScript | 7.0     | Type-safe test scripts           |
 | esbuild    | 0.28    | TypeScript bundler               |
-| Node.js    | 24      | Build tooling                    |
+| Node.js    | 26+     | Build tooling                    |
 
 ## Project Structure
 
@@ -47,7 +47,7 @@ src/
 
 ### Prerequisites
 
-- Node.js 24+
+- Node.js 26+
 - k6 installed - `brew install k6` (macOS) or [k6 install docs](https://grafana.com/docs/k6/latest/set-up/install-k6/)
 - movie-catalog-api running on `http://localhost:8080`
 
@@ -82,6 +82,16 @@ npm run spike
 
 # Against a specific URL
 k6 run dist/smoke.js -e BASE_URL=https://your-api.example.com
+```
+
+## Checking for Dependency Upgrades
+
+```bash
+# List outdated npm packages (current vs. wanted vs. latest)
+npm outdated
+
+# Explain why a package is pinned to its current range (peer dependency chain)
+npm explain <package>
 ```
 
 ## CI/CD
